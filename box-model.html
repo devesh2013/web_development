@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Model In Html</title>
+    <style>
+        div {
+            background-color: rgb(255, 255, 255);
+            width: 250px;
+            border: 15px solid rgb(134, 134, 134);
+            padding: 30px 20px;
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: transform 2s ease;
+        }
+
+        div:hover {
+            transform: rotate(-10deg);
+
+        }
+
+        img {
+            width: 240px;
+        }
+
+        body {
+            background-color: rgb(29, 29, 29);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div><img src="my best friend.avif" alt="">
+        <h3>My Best Friend</h3>
+    </div>
+
+</body>
+
+</html>
