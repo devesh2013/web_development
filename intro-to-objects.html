@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>introduction to objects in javascript</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1>introduction to objects in javascript</h1>
+    <p id="output"></p>
+    <P id="output2"></P>
+    <script>
+        let programer = {
+            name: "Devesh daga",
+            age: 13,
+            salary: 1000,
+            experience_years: "5 years",
+            city: "al wakara",
+            programing_languege: "javascript",
+            skill: "web devolopment",
+        }
+        document.getElementById("output").innerText = "Hi my name is " + programer.name + ". I am " + programer.age + ". I live at " + programer.city + ". My salary is " + programer.salary + ". I have been working for " + programer.experience_years + ". My programing languege is " + programer.programing_languege + ". My skill is " + programer.skill
+
+        let programer2 = {
+                name: "fariooz mashwiyat omlan",
+                age: 25,
+                salary: 1000,
+                experience_years: "6 years",
+                city: "dhaka",
+                programing_languege: "python",
+                skill: "artificial intelegence",
+            }
+            document.getElementById("output2").innerText = "Hi my name is " + programer2.name + ". I am " + programer2.age + ". I live at " + programer2.city + ". My salary is " + programer2.salary + ". I have been working for " + programer2.experience_years + ". My programing languege is " + programer2.programing_languege + ". My skill is " + programer2.skill
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
