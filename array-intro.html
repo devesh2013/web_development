@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>intro to array</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: sans-serif;
+            background: #f0f8ff;
+            padding-top: 50px;
+        }
+
+        #slime {
+            font-size: 80px;
+            margin: 20px;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+
+        #queue-display {
+            font-size: 30px;
+            margin: 20px;
+            min-height: 40px;
+            background: white;
+            width: 300px;
+            margin: 20px auto;
+            border-radius: 10px;
+            padding: 10px;
+            border: 2px dashed #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            background: #4a90e2;
+            color: white;
+            margin: 5px;
+        }
+
+        button:hover {
+            background: #357abd;
+        }
+
+        .status {
+            color: #555;
+            font-weight: bold;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body class="d-flex flex-column justify-content-center align-items-center">
+    <h1>intro to array</h1>
+    <h2>👾Feeding Slime👾</h2>
+    <h3 id="slime">( •_• )</h3>
+    <p id="status" class="status">status:hungrey</p>
+    <div id="queue-display"></div>
+    <div><button type="button" class="btn btn-primary" onclick="addFood()">Add potato</button>
+        <button type="button" class="btn btn-secondary" onclick="feedSlime()">feed the slime</button>
+        <button type="button" class="btn btn-success" onclick="cookFood()">Cook everything</button>
+        <button type="button" class="btn btn-danger" onclick="clear()">clear</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script>
+        let foodQueue = []
+        const slime = document.getElementById('slime');
+
+        const display = document.getElementById('queue-display');
+
+        const status = document.getElementById('status');
+
+        function updateUI() {
+
+            display.innerText = foodQueue.length > 0 ? foodQueue.join(" ➔ ") : "[ Empty ]";
+
+        }
+
+        function addFood() {
+            foodQueue.push("🥔")
+            satus.innerText = "added potato"
+            updateUI
+        }
+        function feedSlime() {
+
+            if (foodQueue.length > 0) {
+
+                const eaten = foodQueue.shift();
+
+                slime.innerText = "( > 0 < )";
+
+                slime.style.transform = "scale(1.3)";
+
+                status.innerText = `Slime ate the ${eaten}!`;
+
+                setTimeout(() => {
+
+                    slime.innerText = "( •_• )";
+
+                    slime.style.transform = "scale(1)";
+
+                }, 400);
+
+                updateUI();
+
+            } else {
+
+                status.innerText = "The queue is empty!";
+
+            }
+
+        }
+
+        function cookFood() {
+
+            if (foodQueue.length > 0) {
+
+                foodQueue = foodQueue.map(item => item === "🥔" ? "🍠" : item);
+
+                status.innerText = "All 🥔 became 🍠!";
+
+                updateUI();
+
+            }
+
+        }
+        function clear() {
+            foodQueue.push("🥔")
+            satus.innerText = "removed everything"
+            updateUI()
+        }
+        updateUI()
+    </script>
+</body>
+
+</html>
