@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> classes in javascript </title>
+</head>
+
+<body>
+    <h1>classes in javascript</h1>
+    <p id="output"></p>
+    <script>
+        class Programmer {
+            constructor(name, age, salary, experience_years, city, programing_languege, skill, nationality) {
+                this.name = name;
+                this.age = age
+                this.salary = salary
+                this.experience_years = experience_years
+                this.city = city
+                this.programing_languege = programing_languege
+                this.skill = skill
+                this.nationality = nationality
+            }
+        }
+
+        let programer=new Programmer('Devesh', '13 years','1000', 5 ,'al wakara','javascript', 'web devolopment', 'India')
+
+
+         document.getElementById("output").innerText = "Hi my name is " + programer.name + ". I am " + programer.age + ". I live at " + programer.city + ". My salary is " + programer.salary + ". I have been working for " + programer.experience_years + ". My programing languege is " + programer.programing_languege + ". My skill is " + programer.skill
+
+
+    </script>
+</body>
+
+</html>
