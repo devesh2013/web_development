@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript error handling</title>
+</head>
+<body>
+    <h1>javascript error handling</h1>
+    <p id="output"></p>
+    <script>
+        function sum(n1,n2){
+            document.getElementById("output").innerHTML=n1 + n2
+        }
+        try {
+            sum(6, 7)
+        }
+        catch(error){
+            document.getElementById("output").innerHTML = error.message
+        }
+    </script>
+</body>
+</html>
