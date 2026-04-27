@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>intro to json in javascript</title>
+</head>
+
+<body>
+    <h1>intro to json in javascript</h1>
+    <p id="output1"></p>
+    <p id="output2"></p>
+    <p id="output3"></p>
+    <script>
+        var student = {
+            name: "Devesh",
+            age: "13 years",
+            grade:"8D" ,
+            
+            city: "al wakra",
+            fav_sub: "science and maths:)",
+            hobby: "reading books"
+
+
+        }
+        var student_json=JSON.stringify(student)
+        var student_object=JSON.parse(student_json)
+        document.getElementById("output1").innerHTML = student.name +" ," + student.age + " ," + student.grade + ", " + student.city + " ," + student.fav_sub + ", " + student.hobby
+         document.getElementById("output2").innerHTML = student_json
+          document.getElementById("output3").innerHTML = student_object.name + " ," + student_object.age + " ," + student_object.grade + ", " + student_object.city + " ," + student_object.fav_sub + ", " + student_object.hobby
+    </script>
+</body>
+
+</html>
