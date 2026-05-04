@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>login forms in javascript</title>\
+    <style>
+        body {
+
+            font-family: 'Segoe UI', sans-serif;
+
+            background-color: #f0f2f5;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            height: 100vh;
+
+            margin: 0;
+
+        }
+
+        .auth-box {
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+            width: 320px;
+
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input {
+
+            width: 100%;
+
+            padding: 12px;
+
+            margin-bottom: 15px;
+
+            border: 2px solid #ddd;
+
+            border-radius: 8px;
+
+            box-sizing: border-box;
+
+            outline: none;
+
+        }
+
+        button {
+
+            width: 100%;
+
+            padding: 12px;
+
+            background: #5b9bd5;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+        .toggle-link {
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            font-size: 14px;
+
+            color: #666;
+
+        }
+
+        .toggle-link span {
+
+            color: #5b9bd5;
+
+            cursor: pointer;
+
+            text-decoration: underline;
+
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-bottom: 10px;
+            display: none;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="auth-box">
+        <h1 id="formTitle">login</h1>
+        <div id="generalError" class="error"></div>
+        <form id="authForm">
+
+            <input type="text" id="username" placeholder="username" required>
+            <br>
+
+
+            <input type="text" id="password" placeholder="password" required>
+            <br>
+
+            <button type="submit" id="submitBtn">sign in</button>
+        </form>
+        <div class="toggle-link">
+            <p id="toggleText">
+                Dont have an account????????????
+                <span onclick="toggleMode()">register</span>
+            </p>
+
+        </div>
+    </div>
+    <script>
+        let isLoginMode = true
+        const authForm = document.getElementById("authForm")
+        const formTitle = document.getElementById("formTitle")
+        const submitBtn = document.getElementById("submitBtn")
+        const toggleText = document.getElementById("toggleText")
+        const generalError = document.getElementById("generalError")
+        // const usernameInput = document.getElementById("username")
+        // const passwordInput = document.getElementById("password")
+        // const usernameError = document.getElementById("usernameError")
+        // const passwordError = document.getElementById("passwordError")
+
+        function toggleMode() {
+            isLoginMode = !isLoginMode
+            formTitle.innerText = isLoginMode ? "login" : "register"
+            submitBtn.innerText = isLoginMode ? "sign" : "create account"
+            toggleText.innerHTML = isLoginMode
+                ? `dont have an account? <span onclick="toggleMode()">Register</span>`
+                : `already have an account? <span onclick="toggleMode()">login</span>`
+            generalError.style.display = "none"
+            authForm.reset()
+        }
+        authForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const user = document.getElementById('username').value.trim();
+
+            const pass = document.getElementById('password').value.trim();
+
+            generalError.style.display = "none";
+
+            if (isLoginMode) {
+
+                // LOGIN LOGIC
+
+                const storedPass = localStorage.getItem(user);
+
+                if (storedPass && storedPass === pass) {
+
+                    alert("Login Successful! Welcome, " + user);
+
+                } else {
+
+                    showError("Invalid username or password.");
+
+                }
+
+            } else {
+
+                // REGISTRATION LOGIC
+
+                if (user.length < 3 || pass.length < 6) {
+
+                    showError("User (3+ chars) & Pass (6+ chars) too short.");
+
+                } else if (localStorage.getItem(user)) {
+
+                    showError("Username already exists!");
+
+                } else {
+
+                    localStorage.setItem(user, pass);
+
+                    alert("Registration successful! You can now login.");
+
+                    toggleMode();
+
+                }
+
+            }
+        })
+
+
+
+
+
+        function showError(message) {
+            generalError.innerText = message
+            generalError.style.display = "block"
+
+
+        }
+
+
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

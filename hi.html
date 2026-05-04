@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mini Shooter Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial;
+            background: #111;
+            color: white;
+        }
+
+        #ui {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+
+        canvas {
+            background: #222;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="ui">
+        ❤️ Health: <span id="health">100</span><br>
+        ⭐ Score: <span id="score">0</span>
+    </div>
+
+    <canvas id="game"></canvas>
+
+    <script>
+        const canvas = document.getElementById("game");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let player = { x: 300, y: 300, size: 20, speed: 4 };
+        let bullets = [];
+        let enemyBullets = [];
+        let enemies = [];
+
+        let keys = {};
+        let score = 0;
+        let health = 100;
+
+        document.addEventListener("keydown", e => keys[e.key] = true);
+        document.addEventListener("keyup", e => keys[e.key] = false);
+        canvas.addEventListener("click", shoot);
+
+        function shoot(e) {
+            const angle = Math.atan2(e.clientY - player.y, e.clientX - player.x);
+            bullets.push({
+                x: player.x,
+                y: player.y,
+                dx: Math.cos(angle) * 6,
+                dy: Math.sin(angle) * 6,
+                size: 5
+            });
+        }
+
+        // 🔴 Spawn different enemy types
+        function spawnEnemy() {
+            const types = ["chaser", "fast", "tank", "shooter"];
+            const type = types[Math.floor(Math.random() * types.length)];
+
+            const base = {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                type
+            };
+
+            if (type === "chaser") {
+                enemies.push({ ...base, size: 20, speed: 1.5, hp: 1 });
+            }
+
+            if (type === "fast") {
+                enemies.push({ ...base, size: 12, speed: 3, hp: 1 });
+            }
+
+            if (type === "tank") {
+                enemies.push({ ...base, size: 30, speed: 0.8, hp: 5 });
+            }
+
+            if (type === "shooter") {
+                enemies.push({ ...base, size: 18, speed: 1, hp: 2, cooldown: 0 });
+            }
+        }
+
+        setInterval(spawnEnemy, 1200);
+
+        function update() {
+            // Movement
+            if (keys["w"]) player.y -= player.speed;
+            if (keys["s"]) player.y += player.speed;
+            if (keys["a"]) player.x -= player.speed;
+            if (keys["d"]) player.x += player.speed;
+
+            // Player bullets
+            bullets.forEach(b => {
+                b.x += b.dx;
+                b.y += b.dy;
+            });
+
+            // Enemy behavior
+            enemies.forEach(e => {
+                const angle = Math.atan2(player.y - e.y, player.x - e.x);
+
+                if (e.type === "chaser" || e.type === "fast" || e.type === "tank") {
+                    e.x += Math.cos(angle) * e.speed;
+                    e.y += Math.sin(angle) * e.speed;
+                }
+
+                if (e.type === "shooter") {
+                    // Move slowly
+                    e.x += Math.cos(angle) * e.speed;
+                    e.y += Math.sin(angle) * e.speed;
+
+                    // Shoot
+                    e.cooldown--;
+                    if (e.cooldown <= 0) {
+                        enemyBullets.push({
+                            x: e.x,
+                            y: e.y,
+                            dx: Math.cos(angle) * 4,
+                            dy: Math.sin(angle) * 4,
+                            size: 5
+                        });
+                        e.cooldown = 100;
+                    }
+                }
+
+                // Damage player
+                const dist = Math.hypot(player.x - e.x, player.y - e.y);
+                if (dist < player.size + e.size) {
+                    health -= 0.5;
+                }
+            });
+
+            // Enemy bullets
+            enemyBullets.forEach(b => {
+                b.x += b.dx;
+                b.y += b.dy;
+
+                const dist = Math.hypot(player.x - b.x, player.y - b.y);
+                if (dist < player.size) {
+                    health -= 2;
+                }
+            });
+
+            // Bullet hits enemy
+            bullets.forEach((b, bi) => {
+                enemies.forEach((e, ei) => {
+                    const dist = Math.hypot(b.x - e.x, b.y - e.y);
+                    if (dist < e.size) {
+                        e.hp--;
+                        bullets.splice(bi, 1);
+
+                        if (e.hp <= 0) {
+                            enemies.splice(ei, 1);
+                            score += 10;
+                        }
+                    }
+                });
+            });
+
+            document.getElementById("health").textContent = Math.floor(health);
+            document.getElementById("score").textContent = score;
+
+            if (health <= 0) {
+                alert("Game Over! Score: " + score);
+                location.reload();
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Player
+            ctx.fillStyle = "lime";
+            ctx.beginPath();
+            ctx.arc(player.x, player.y, player.size, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Bullets
+            ctx.fillStyle = "yellow";
+            bullets.forEach(b => {
+                ctx.beginPath();
+                ctx.arc(b.x, b.y, b.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Enemy bullets
+            ctx.fillStyle = "orange";
+            enemyBullets.forEach(b => {
+                ctx.beginPath();
+                ctx.arc(b.x, b.y, b.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Enemies with colors
+            enemies.forEach(e => {
+                if (e.type === "chaser") ctx.fillStyle = "red";
+                if (e.type === "fast") ctx.fillStyle = "cyan";
+                if (e.type === "tank") ctx.fillStyle = "purple";
+                if (e.type === "shooter") ctx.fillStyle = "orange";
+
+                ctx.beginPath();
+                ctx.arc(e.x, e.y, e.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+    </script>
+
+</body>
+
+</html>
