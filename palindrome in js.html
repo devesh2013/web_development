@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>palindrome in javassript</title>
+
+</head>
+<body>
+   <h1>palindrome in javassript</h1> 
+  <script>
+     var user_input =prompt("enter a text")
+     var clean_text = user_input.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+     var reverse_text=clean_text.split('').reverse().join('')
+     if (clean_text===reverse_text){
+        alert("your provided text is a palindrome")
+     }
+     else {
+       alert("your provided text is not a palindrome") 
+     }
+
+  </script>
+</body>
+</html>
