@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>to do list in javascript</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1>to do list in javascript</h1>
+    <h4>Make To Do List: </h4>
+    <input type="text" id="create">
+    <button type="button" class="btn btn-primary" onclick="addToDo()">Add</button>
+    <br>
+    <br>
+    <h4>To Do List:</h4>
+    <ul id="toDoList"></ul>
+    <script>
+        function addToDo() {
+            let task = document.getElementById("create")
+            let toDo = task.value.trim()
+            if (toDo != "") {
+                let listitem = document.createElement("toDoList")
+                listitem.innerHTML = toDo + " " +'<button type="button" class="btn btn-danger" onclick="deleteToDo(this)">Delete</button>'  + "<br>" + "<br>"
+               
+                document.getElementById("toDoList").appendChild(listitem)
+                task.value = ""
+            }
+        }
+        function deleteToDo(deleteBtn) {
+            let listitem = deleteBtn.parentNode
+            listitem.remove()
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
