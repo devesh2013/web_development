@@ -25,6 +25,22 @@
         let startTime
         let elapseTime = 0
         let timerInterval
+        function timeToString(time) {
+            let difference_hh = time / 3600000
+            let hh = Math.floor(difference_hh)
+            let difference_mm = (difference_hh - hh) * 60
+            let mm = Math.floor(difference_mm)
+            let difference_ss = (difference_mm - mm) * 60
+            let ss = Math.floor(difference_ss)
+            let formatedHh = hh.toString().padStart(2, "0");
+            let formatedMm = mm.toString().padStart(2, "0");
+            let formatedSs = ss.toString().padStart(2, "0");
+            return `${formatedHh}:${formatedMm}:${formatedSs}`
+
+        }
+        function print(text) {
+            document.getElementById("display").innerHTML = text
+        }
         function start() {
             if (timerInterval) {
                 return
