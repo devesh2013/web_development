@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h1 id="number">1</h1>
+    <button onclick="toggle()">Switch Odd/Even</button>
+
+    <script>
+        let showEven = false;
+
+        function randomOdd() {
+            return Math.floor(Math.random() * 50) * 2 + 1;
+        }
+
+        function randomEven() {
+            return Math.floor(Math.random() * 50) * 2;
+        }
+
+        setInterval(() => {
+            document.getElementById("number").textContent =
+                showEven ? randomEven() : randomOdd();
+        }, 500);
+
+        function toggle() {
+            showEven = !showEven;
+        }
+    </script>
+
+</body>
+
+</html>
