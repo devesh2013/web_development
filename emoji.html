@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Change My Mood</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #emoji {
+            font-size: 5rem;
+        }
+
+        #output {
+            font-size: 2rem;
+        }
+
+        #status {
+            border: 10px solid orange;
+            padding: 20px 100px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="text-center">
+
+        <div role="status" id="status">
+            <h1>Current vibe</h1>
+            <p id="emoji">😴</p>
+            <h4 id="output">sleepy</h4>
+
+            <button id="mood">Change Mood</button>
+            <button id="bg-btn">Change Background Color</button>
+
+
+
+        </div>
+    </div>
+    <script>
+        let colors = ["red", "blue", "yellow", "green"];
+
+        document.getElementById("bg-btn").addEventListener("click", () => {
+            const randomIndex = Math.floor(Math.random() * colors.length);
+            document.body.style.backgroundColor = colors[randomIndex];
+        });
+
+        let moods = ["😊", "😡", "😢", "😴", "🤔", "😩"];
+        let moodText = ["happy", "angry", "sad", "sleepy", "thinking", "tired"];
+
+        document.getElementById("mood").addEventListener("click", () => {
+            const randomIndex = Math.floor(Math.random() * moods.length);
+            document.getElementById("emoji").innerHTML = moods[randomIndex];
+            document.getElementById("output").innerHTML = moodText[randomIndex];
+        });
+    </script>
+</body>
+
+</html>
